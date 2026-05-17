@@ -1,0 +1,41 @@
+!!!
+%html
+  %head
+    %meta{ content: "text/html; charset=UTF-8", "http-equiv": "Content-Type"}/
+    %title= content_for(:title) || "Awesome Events"
+    %meta{ content: "width=device-width,initial-scale=1", name: "viewport"}/
+    %meta{ content: "yes", name: "apple-mobile-web-app-capable"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = yield :head
+    %link{ href: "/manifest.json", rel: "manifest"}/
+    %link{ href: "/icon.png", rel: "icon", type: "image/png"}/
+    %link{ href: "/icon.svg", rel: "icon", type: "image/svg+xml"}/
+    %link{ href: "/icon.png", rel: "apple-touch-icon"}/
+    %link{ href: "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css", rel: "stylesheet"}/
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_importmap_tags
+    %script{ src: "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" }
+  %body
+    %header.navbar.navbar-expand-sm.navbar-light.bg-light
+      .container
+        = link_to "AwesomeEvents", root_path, class: "navbar-brand mr-auto"
+        %ul.navbar-nav
+          %li.nav-item 
+            = link_to "イベントを作る", new_event_path, class: "nav-link"
+          - if logged_in?
+            %li.nav-item
+              = link_to "退会", new_retirements_path, class: "nav-link"
+            %li.nav-item
+              = button_to "ログアウト", logout_path, method: :delete, class: "btn btn-link nav-link"
+          - else
+            %li.nav-item
+              = link_to "Githubでログイン", "/auth/github", class: "nav-link"
+    .container
+      - if flash.notice
+        .alert.alert-success
+          = flash.notice
+      - if flash.alert
+        .alert.alert-danger
+          = flash.alert
+      = yield
