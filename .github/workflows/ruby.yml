@@ -1,0 +1,62 @@
+name: Rails Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        ruby-version: ['2.6', '2.7', '3.0']
+
+    steps:
+      # リポジトリのコードを取得
+      - uses: actions/checkout@v4
+
+      # Rubyセットアップ
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+
+      # SQLite3の開発ライブラリをinstall
+      - name: Install SQLite dependencies
+        run: sudo apt-get -yqq install libsqlite3-dev
+
+      # gem install
+      - name: Bundle install
+        run: bundle install --jobs 4 --retry 3
+
+      # DB作成
+      - name: Create database
+        run: bin/rails db:create
+
+      # migration実行
+      - name: Run migrations
+        run: bin/rails db:migrate
+
+      # Node.jsセットアップ
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # yarn install
+      - name: Install JavaScript packages
+        run: bin/yarn install
+
+      # Railsテスト
+      - name: Run Rails tests
+        run: bin/rails test
+
+      # System Test
+      - name: Run System tests
+        run: bin/rails test:system
