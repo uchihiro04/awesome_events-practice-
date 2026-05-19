@@ -362,7 +362,7 @@ GEM
       ffi (~> 1.12)
       logger
     rubyzip (3.2.2)
-    searchkick (6.1.0)
+    searchkick (6.1.1)
       activemodel (>= 7.2)
     securerandom (0.4.1)
     selenium-webdriver (4.43.0)
