@@ -3,7 +3,7 @@ require "test_helper"
 class EventTest < ActiveSupport::TestCase
   test '#created_by? owner_idと引数の#idが同じとき' do
     event = FactoryBot.create(:event)
-    user = MiniTest::Mock.new.expect(:id, event.owner_id)
+    user = Minitest::Mock.new.expect(:id, event.owner_id)
     assert_equal(true, event.created_by?(user))
     user.verify
   end
