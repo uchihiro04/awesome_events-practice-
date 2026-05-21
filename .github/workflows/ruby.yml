@@ -51,16 +51,7 @@ jobs:
       - name: Run migrations
         run: bin/rails db:migrate
 
-      # ✅ 残す: Node.jsとyarnが必要
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install JavaScript packages
-        run: bin/yarn install
-
-      # ✅ 残す: Minitestをそのまま使う
+      # Railsテスト
       - name: Run Rails tests
         run: bin/rails test
 
