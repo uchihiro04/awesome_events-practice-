@@ -16,9 +16,8 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     sign_in_user = FactoryBot.create(:user)
     sign_in_as sign_in_user
     assert_difference("Event.count", 0) do
-      assert_raises(ActiveRecord::RecordNotFound) do
-        delete event_url(event)
-      end
+      delete event_url(event)
+      assert_response :not_found  # 404が返ることを確認
     end
   end
 end
