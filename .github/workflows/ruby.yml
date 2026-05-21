@@ -34,7 +34,7 @@ jobs:
       - name: Run Elasticsearch
         uses: perfect-ruby-on-rails/elasticsearch-with-plugins-action@v1
         with:
-          stack-version: 7.6.0
+          stack-version: 9.0.0
           plugins: |
             analysis-kuromoji
 
