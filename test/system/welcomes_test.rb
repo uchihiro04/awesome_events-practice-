@@ -3,13 +3,16 @@ require "application_system_test_case"
 class WelcomesTest < ApplicationSystemTestCase
   test "/ ページを表示" do
     visit root_url
-  
     assert_selector "h1", text: "イベント一覧"
   end
 
   test "/ ページを表示して、未来のイベントは表示、過去のイベントは非表示であること" do
     future_event = FactoryBot.create(:event, start_at: Time.zone.now + 3.day)
     past_event = FactoryBot.create(:event, start_at: Time.zone.now + 1.day)
+
+    # ✅ 追加: インデックスを更新してから検索できるようにする
+    Event.reindex
+    Event.searchkick_index.refresh
 
     travel_to Time.zone.now + 2.day do
       visit root_url
