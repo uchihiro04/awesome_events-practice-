@@ -13,17 +13,19 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    # ✅ 追加: 環境変数をjobレベルで設定
+    env:
+      ELASTICSEARCH_URL: http://localhost:9200
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          # ✅ 変更: .ruby-versionから自動取得
           ruby-version: .ruby-version
           bundler-cache: true
 
-      # ✅ 残す: Elasticsearchを使っているので必要
       - name: Configure sysctl limits
         run: |
           sudo swapoff -a
@@ -38,7 +40,15 @@ jobs:
           plugins: |
             analysis-kuromoji
 
-      # ✅ 残す: SQLite3を使っているので必要
+      # ✅ 追加: Elasticsearchの起動完了を待つ
+      - name: Wait for Elasticsearch
+        run: |
+          until curl -s http://localhost:9200 > /dev/null; do
+            echo "Elasticsearchの起動を待っています..."
+            sleep 5
+          done
+          echo "起動完了 ✅"
+
       - name: Install SQLite dependencies
         run: sudo apt-get -yqq install libsqlite3-dev
 
@@ -51,12 +61,9 @@ jobs:
       - name: Run migrations
         run: bin/rails db:migrate
 
-      # Railsテスト
       - name: Run Rails tests
         run: bin/rails test
 
-      # ✅ 残す: System Testも実行する
-      # ✅ 追加: System TestにはChromeが必要なのでセットアップを追加
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v1
 
