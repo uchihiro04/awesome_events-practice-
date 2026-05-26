@@ -106,11 +106,19 @@ GEM
     cgi (0.5.1)
     concurrent-ruby (1.3.6)
     connection_pool (3.0.2)
+    coveralls (0.7.1)
+      multi_json (~> 1.3)
+      rest-client
+      simplecov (>= 0.7)
+      term-ansicolor
+      thor
     crass (1.0.6)
     date (3.5.1)
     debug (1.11.1)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    docile (1.4.1)
+    domain_name (0.6.20240107)
     drb (2.2.3)
     elastic-transport (8.5.1)
       faraday (< 3)
@@ -155,6 +163,9 @@ GEM
       railties (>= 4.0.1)
     hashie (5.1.0)
       logger
+    http-accept (1.7.0)
+    http-cookie (1.1.6)
+      domain_name (~> 0.5)
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
     image_processing (1.14.0)
@@ -202,10 +213,15 @@ GEM
       net-smtp
     marcel (1.2.1)
     matrix (0.4.3)
+    mime-types (3.7.0)
+      logger
+      mime-types-data (~> 3.2025, >= 3.2025.0507)
+    mime-types-data (3.2026.0414)
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
     minitest (5.27.0)
+    mize (0.6.1)
     msgpack (1.8.0)
     multi_json (1.21.1)
     multi_xml (0.9.1)
@@ -221,6 +237,7 @@ GEM
       timeout
     net-smtp (0.5.1)
       net-protocol
+    netrc (0.11.0)
     nio4r (2.7.5)
     nokogiri (1.19.3-aarch64-linux-gnu)
       racc (~> 1.4)
@@ -328,9 +345,16 @@ GEM
       erb
       psych (>= 4.0.0)
       tsort
+    readline (0.0.4)
+      reline
     regexp_parser (2.12.0)
     reline (0.6.3)
       io-console (~> 0.5)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rexml (3.4.4)
     rubocop (1.86.2)
       json (~> 2.3)
@@ -374,6 +398,12 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.13.2)
+    simplecov_json_formatter (0.1.4)
     snaky_hash (2.0.4)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
@@ -396,10 +426,18 @@ GEM
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.2.0)
+    sync (0.5.0)
     temple (0.10.4)
+    term-ansicolor (1.11.3)
+      tins (~> 1)
     thor (1.5.0)
     tilt (2.7.0)
     timeout (0.6.1)
+    tins (1.54.0)
+      bigdecimal
+      mize (~> 0.6)
+      readline
+      sync
     tsort (0.2.0)
     turbo-rails (2.0.23)
       actionpack (>= 7.1.0)
@@ -443,6 +481,7 @@ DEPENDENCIES
   bootsnap
   brakeman
   capybara
+  coveralls
   debug
   elasticsearch
   factory_bot_rails
@@ -458,9 +497,13 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 7.2.2, >= 7.2.2.1)
   rails-i18n
+  rubocop
+  rubocop-performance
+  rubocop-rails
   rubocop-rails-omakase
   searchkick
   selenium-webdriver
+  simplecov
   sprockets-rails
   sqlite3 (>= 1.4)
   stimulus-rails
