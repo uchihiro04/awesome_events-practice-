@@ -58,7 +58,7 @@ group :development, :test do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'simplecov', require: false, group: :test
-  gem 'coveralls', require: false, group: :test
+  gem 'coveralls-ruby', require: false, group: :test
 end
 
 group :development do
