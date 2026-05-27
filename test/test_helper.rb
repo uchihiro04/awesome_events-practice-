@@ -9,6 +9,7 @@ end
 
 SimpleCov.start 'rails' do
   formatter SimpleCov::Formatter::LcovFormatter
+  command_name 'Minitest'
 end
 
 require_relative "../config/environment"

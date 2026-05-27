@@ -57,7 +57,7 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
-  gem 'simplecov', require: false, group: :test
+  gem 'simplecov', '~> 0.22.0', require: false, group: :test
   gem 'simplecov-lcov', require: false
 end
 
