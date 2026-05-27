@@ -16,7 +16,6 @@ jobs:
     # ✅ 追加: 環境変数をjobレベルで設定
     env:
       ELASTICSEARCH_URL: http://localhost:9200
-      COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
     steps:
       - uses: actions/checkout@v4
@@ -64,6 +63,13 @@ jobs:
 
       - name: Run Rails tests
         run: bin/rails test
+
+      # ✅ 追加
+      - name: Upload coverage to Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./coverage/lcov.info
 
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v1

@@ -1,10 +1,15 @@
 ENV["RAILS_ENV"] ||= "test"
 
-require 'coveralls'
-Coveralls.wear!
-
 require 'simplecov'
-SimpleCov.start 'rails'
+require 'simplecov-lcov'
+
+SimpleCov::Formatter::LcovFormatter.config do |c|
+  c.report_with_single_file = true
+end
+
+SimpleCov.start 'rails' do
+  formatter SimpleCov::Formatter::LcovFormatter
+end
 
 require_relative "../config/environment"
 require "rails/test_help"
