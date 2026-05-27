@@ -22,3 +22,5 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+[![Coverage Status](https://coveralls.io/repos/github/uchihiro04/awesome_events-practice-/badge.svg?branch=main)](https://coveralls.io/github/uchihiro04/awesome_events-practice-?branch=main)
